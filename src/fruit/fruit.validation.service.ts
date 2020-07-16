@@ -3,6 +3,7 @@ import { Injectable, BadRequestException, NotFoundException } from '@nestjs/comm
 import { Fruit } from './fruit.model'
 import { samplefruit } from './fruits.seed'
 import { FruitService } from './fruit.service'
+
 import { notArraysEqual } from '../utils/tsUtils'
 
 
@@ -22,7 +23,12 @@ export class FruitValidationService {
 
     validateFruit(f: Fruit) {
         if (notArraysEqual(Object.keys(f), Object.keys(samplefruit))) {
-            throw new BadRequestException("Fruit is mising properties. Fruits should all have ${Object.keys(samplefruit)} properties")
+
+            const str = Object.keys(samplefruit).reduce((p, c) => {
+                return p + ", " + c
+            })
+
+            throw new BadRequestException(`Fruit is mising properties. Fruits should all have ${str} properties`)
         }
     }
 
