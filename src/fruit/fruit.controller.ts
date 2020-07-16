@@ -37,7 +37,6 @@ export class FruitController {
     updateFruit(
         @Param('id') id: string,
         @Body() fruit: Fruit) {
-        this.validationService.validateFruit(fruit)
         // How will we update if we don't have that fruit yet
         this.validationService.validateWeHaveFruit(id)
         return this.service.update(id, fruit)
